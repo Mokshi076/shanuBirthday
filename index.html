@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy B'day Shanu&#127872;</title>
+<link rel="stylesheet" href="Style.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<script>
+function placeholderSlide(num) {
+  return '<div class="slide-placeholder">'
+    + '<div class="sp-icon">&#128247;</div>'
+    + '<div class="sp-num">Photo ' + num + '</div>'
+    + '<div class="sp-hint">set src="" in index.html</div>'
+    + '</div>';
+}
+</script>
+
+</head>
+<body>
+
+<canvas id="galaxyCanvas"></canvas>
+<canvas id="sparkCanvas"></canvas>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="tag">&#10022; Let us Celebrate!!🥳 &#10022;</span>
+    <h1 id="heroTitle">Happy Birthday<br><span id="heroName">Shanu &#127872;</span></h1>
+    <p class="love-text">
+      My dearest &#x1F970;&#x1F970; You are gorgeous and mean a lot to me &#x1F64C;<br>
+      I am fortunate to have you!!! LOVE you so much :) &#x1F618;
+    </p>
+    <p class="subtitle" id="heroSubtitle">the most wonderful person in my universe</p>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="action-row">
+    <button class="action-btn btn-music" id="musicBtn" onclick="toggleMusic()">
+      <span id="musicIcon">&#127925;</span>
+      <span id="musicLabel">Play Birthday Song</span>
+    </button>
+    <button class="action-btn btn-confetti" onclick="launchConfetti()">&#127882; Celebrate!</button>
+    <button class="action-btn btn-reaction" onclick="scrollToReaction()">&#128172; Send Her a Message</button>
+  </div>
+
+  <!-- MESSAGE -->
+  <div class="message-card">
+    <span class="qm">"</span>
+    <p id="messageText">Hey you, yes you — the most adorable, most precious, most absolutely incredible little sister on the planet. Today is YOUR day. The whole world gets to celebrate the fact that you exist, and honestly? What a blessing that is. You make every room brighter just by walking in. I love you endlessly, and I hope this birthday is everything you dreamed of and more. &#127800;&#128150;</p>
+  </div>
+
+  <!-- IMAGE SLIDER -->
+  <div class="slider-section">
+    <div class="section-title">&#128247; The way you are</div>
+    <div class="slider-wrap" id="sliderWrap">
+      <div class="slider-track" id="sliderTrack">
+        <div class="slide"><img src="./assets/10.jpeg" alt="Memory 1" onerror="this.parentElement.innerHTML=placeholderSlide(1)"></div>
+        <div class="slide"><img src="./assets/1.jpeg" alt="Memory 2" onerror="this.parentElement.innerHTML=placeholderSlide(2)"></div>
+        <div class="slide"><img src="./assets/2.jpeg" alt="Memory 4" onerror="this.parentElement.innerHTML=placeholderSlide(4)"></div>
+        <div class="slide"><img src="./assets/11.jpeg" alt="Memory 5" onerror="this.parentElement.innerHTML=placeholderSlide(5)"></div>
+        <div class="slide"><img src="./assets/3.jpeg" alt="Memory 6" onerror="this.parentElement.innerHTML=placeholderSlide(6)"></div>
+        <div class="slide"><img src="./assets/5.jpeg" alt="Memory 6" onerror="this.parentElement.innerHTML=placeholderSlide(6)"></div>
+        <div class="slide"><img src="./assets/12.jpeg" alt="Memory 6" onerror="this.parentElement.innerHTML=placeholderSlide(6)"></div>
+
+        <div class="slide"><img src="./assets/6.png" alt="Memory 6" onerror="this.parentElement.innerHTML=placeholderSlide(6)"></div>
+        <div class="slide"><img src="./assets/9.jpeg" alt="Memory 6" onerror="this.parentElement.innerHTML=placeholderSlide(6)"></div>
+      </div>
+      <button class="slider-arrow prev" onclick="slideMove(-1)">&#8592;</button>
+      <button class="slider-arrow next" onclick="slideMove(1)">&#8594;</button>
+      <div class="slide-counter" id="slideCounter">1 / 6</div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <div class="section-title">&#127916; a little video for you</div>
+    <div class="video-container" id="videoContainer">
+      <video id="videoPlayer" controls>
+        <source src="./assets/v2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-placeholder" id="videoPlaceholder">
+        <div class="vp-icon">&#9654;&#65039;</div>
+        <p class="vp-label">Add your video path in <code>index.html</code></p>
+        <p class="vp-hint">Find the &lt;source src=""&gt; tag and fill in your video path</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANDLES -->
+  <div class="candles-row" id="candlesRow"></div>
+
+  <!-- BOTTOM GRID -->
+  <div class="bottom-row">
+    <!-- WISHES CARD -->
+    <div class="card">
+      <h3>&#10024; birthday wishes</h3>
+      <ul class="wish-list" id="wishList">
+        <li class="wish-item">endless happiness &amp; laughter</li>
+        <li class="wish-item">all the love you give, returned tenfold</li>
+        <li class="wish-item">adventures beyond your wildest dreams</li>
+        <li class="wish-item">good health &amp; beautiful days ahead</li>
+        <li class="wish-item">every single one of your dreams coming true</li>
+        <li class="wish-item">success that feels fulfilling & deserved</li>
+        <li class="wish-item">a heart always surrounded by kindness</li>
+        <li class="wish-item">little surprises that make you smile</li>
+        <li class="wish-item">memories that stay warm in your heart</li>
+        <li class="wish-item">strength to rise through every challenge</li>
+        <li class="wish-item">every single one of your dreams coming true</li>
+
+      </ul>
+    </div>
+
+    <!-- TIC TAC TOE CARD -->
+    <div class="card" id="tttCard">
+      <h3>&#10006; tic tac toe &#9711;</h3>
+      <div class="ttt-score">
+        <div class="ttt-score-box sx">
+          <div class="ttt-score-label">you (X)</div>
+          <div class="ttt-score-num" id="tttScoreX">0</div>
+        </div>
+        <div class="ttt-score-box sd">
+          <div class="ttt-score-label">draws</div>
+          <div class="ttt-score-num" id="tttScoreD">0</div>
+        </div>
+        <div class="ttt-score-box so">
+          <div class="ttt-score-label">pc (O)</div>
+          <div class="ttt-score-num" id="tttScoreO">0</div>
+        </div>
+      </div>
+      <div class="ttt-turn-label" id="tttTurnLabel">your turn — tap a cell</div>
+      <div class="ttt-board" id="tttBoard">
+        <div class="ttt-cell" data-i="0" onclick="tttClick(0)"></div>
+        <div class="ttt-cell" data-i="1" onclick="tttClick(1)"></div>
+        <div class="ttt-cell" data-i="2" onclick="tttClick(2)"></div>
+        <div class="ttt-cell" data-i="3" onclick="tttClick(3)"></div>
+        <div class="ttt-cell" data-i="4" onclick="tttClick(4)"></div>
+        <div class="ttt-cell" data-i="5" onclick="tttClick(5)"></div>
+        <div class="ttt-cell" data-i="6" onclick="tttClick(6)"></div>
+        <div class="ttt-cell" data-i="7" onclick="tttClick(7)"></div>
+        <div class="ttt-cell" data-i="8" onclick="tttClick(8)"></div>
+      </div>
+      <div class="ttt-result-banner" id="tttBanner"></div>
+      <button class="ttt-play-again" id="tttRestart" onclick="tttRestart()">&#127381; play again</button>
+    </div>
+  </div>
+
+  <!-- AUDIENCE REACTION -->
+  <div class="reaction-section" id="reactionSection">
+    <div class="section-title">&#128172; messages for her</div>
+    <div class="reaction-feed" id="reactionFeed">
+      <div class="rxn-msg">
+        <div class="rxn-avatar">&#127872;</div>
+        <div class="rxn-bubble">
+          <div class="rxn-name">everyone</div>
+          Happy Birthday! You are so loved &#128156;
+        </div>
+      </div>
+    </div>
+    <div class="reaction-input-row">
+      <input class="rxn-name-input" id="rxnName" type="text" placeholder="your name" maxlength="20">
+      <input class="rxn-text-input" id="rxnText" type="text" placeholder="write her a message..." maxlength="120">
+      <button class="rxn-send-btn" onclick="sendReaction()">Send &#128140;</button>
+    </div>
+  </div>
+
+  <footer id="footerText">made with &#128150; just for you &middot; happy birthday</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
