@@ -3,7 +3,7 @@
    CONFIG
    ══════════════════════════════════════════════ */
 const CONFIG = {
-  name:     'Shanu\uD83C\uDF80',
+  name:     'Vidhi\uD83C\uDF80',
   subtitle: 'the most wonderful person in my universe',
   message:  'Hey you, yes you \u2014 the most adorable, most precious, most absolutely incredible little sister on the planet. Today is YOUR day. The whole world gets to celebrate the fact that you exist, and honestly? What a blessing that is. You make every room brighter just by walking in. I love you endlessly, and I hope this birthday is everything you dreamed of and more. \uD83C\uDF38\uD83D\uDC96',
   age:      18,
@@ -328,7 +328,7 @@ for (let i=0;i<5;i++) setTimeout(launchBalloon, i*400);
 /* ══════════════════════════════════════════════
    REACTIONS
    ══════════════════════════════════════════════ */
-const STORAGE_KEY = 'bdayReactions_shanu';
+const STORAGE_KEY = 'bdayReactions_vidhi';
 const AV = ['\uD83C\uDF80','\uD83D\uDC9C','\uD83D\uDC96','\uD83C\uDF38','\u2728','\uD83E\uDD8B','\uD83C\uDF1F','\uD83C\uDF8A'];
 function loadReactions() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; } catch { return []; } }
 function saveReactions(list) { try { localStorage.setItem(STORAGE_KEY,JSON.stringify(list)); } catch {} }
