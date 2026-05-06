@@ -328,32 +328,117 @@ for (let i=0;i<5;i++) setTimeout(launchBalloon, i*400);
 /* ══════════════════════════════════════════════
    REACTIONS
    ══════════════════════════════════════════════ */
-const STORAGE_KEY = 'bdayReactions_vidhi';
-const AV = ['\uD83C\uDF80','\uD83D\uDC9C','\uD83D\uDC96','\uD83C\uDF38','\u2728','\uD83E\uDD8B','\uD83C\uDF1F','\uD83C\uDF8A'];
-function loadReactions() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; } catch { return []; } }
-function saveReactions(list) { try { localStorage.setItem(STORAGE_KEY,JSON.stringify(list)); } catch {} }
+/* ══════════════════════════════════════════════
+   GLOBAL MESSAGE SYSTEM
+   ══════════════════════════════════════════════ */
+
+const AV = ['🎀','💜','💖','🌸','✨','🦋','🌟','🎉'];
+
 function renderReaction({name,text,avatar}) {
-  const feed=document.getElementById('reactionFeed');
-  const msg=document.createElement('div'); msg.className='rxn-msg';
-  msg.innerHTML=`<div class="rxn-avatar">${avatar}</div><div class="rxn-bubble"><div class="rxn-name">${name.replace(/</g,'&lt;')}</div>${text.replace(/</g,'&lt;')}</div>`;
-  feed.appendChild(msg); feed.scrollTop=feed.scrollHeight;
+
+  const feed = document.getElementById('reactionFeed');
+
+  const msg = document.createElement('div');
+
+  msg.className = 'rxn-msg';
+
+  msg.innerHTML = `
+    <div class="rxn-avatar">${avatar}</div>
+
+    <div class="rxn-bubble">
+      <div class="rxn-name">${name}</div>
+      ${text}
+    </div>
+  `;
+
+  feed.appendChild(msg);
+
+  feed.scrollTop = feed.scrollHeight;
 }
-loadReactions().forEach(renderReaction);
-function sendReaction() {
-  const nEl=document.getElementById('rxnName'), tEl=document.getElementById('rxnText');
-  const name=nEl.value.trim()||'Anonymous', text=tEl.value.trim();
+
+async function loadMessages() {
+
+  const {
+    collection,
+    getDocs,
+    query,
+    orderBy
+  } = window.firebaseFunctions;
+
+  const q = query(
+    collection(window.db, "birthdayMessages"),
+    orderBy("time", "asc")
+  );
+
+  const snapshot = await getDocs(q);
+
+  document.getElementById('reactionFeed').innerHTML = '';
+
+  snapshot.forEach((doc) => {
+    renderReaction(doc.data());
+  });
+}
+
+async function sendReaction() {
+
+  const nEl = document.getElementById('rxnName');
+  const tEl = document.getElementById('rxnText');
+
+  const name = nEl.value.trim() || 'Anonymous';
+  const text = tEl.value.trim();
+
   if (!text) return;
-  const entry={name,text,avatar:AV[~~(Math.random()*AV.length)]};
-  renderReaction(entry);
-  const saved=loadReactions(); saved.push(entry); saveReactions(saved);
-  tEl.value='';
-  confetti({particleCount:55,spread:55,origin:{y:0.9},scalar:0.85,colors:['#ff66aa','#cc44ff','#ffcc00']});
+
+  const avatar = AV[Math.floor(Math.random() * AV.length)];
+
+  const {
+    collection,
+    addDoc
+  } = window.firebaseFunctions;
+
+  await addDoc(
+    collection(window.db, "birthdayMessages"),
+    {
+      name,
+      text,
+      avatar,
+      time: Date.now()
+    }
+  );
+
+  renderReaction({ name, text, avatar });
+
+  tEl.value = '';
+
+  confetti({
+    particleCount: 55,
+    spread: 55,
+    origin: { y: 0.9 },
+    scalar: 0.85,
+    colors: ['#ff66aa','#cc44ff','#ffcc00']
+  });
 }
-document.getElementById('rxnText').addEventListener('keydown',e=>{ if(e.key==='Enter') sendReaction(); });
+
+document
+  .getElementById('rxnText')
+  .addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendReaction();
+  });
+
 function scrollToReaction() {
-  document.getElementById('reactionSection').scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>document.getElementById('rxnText').focus(),600);
+  document
+    .getElementById('reactionSection')
+    .scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+  setTimeout(() => {
+    document.getElementById('rxnText').focus();
+  }, 600);
 }
+
+loadMessages();
 
 /* ══════════════════════════════════════════════
    ON LOAD

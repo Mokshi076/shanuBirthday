@@ -179,6 +179,45 @@ May this year bring you everything you’ve been wishing for and so much more. I
   <footer id="footerText">made with &#128150; just for you &middot; happy birthday</footer>
 </div>
 
+
+<!-- Firebase -->
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyA401FQLiIE210pOWJaus08gaCYYHDXVn0",
+  authDomain: "birthdaytemp-f00f8.firebaseapp.com",
+  projectId: "birthdaytemp-f00f8",
+  storageBucket: "birthdaytemp-f00f8.firebasestorage.app",
+  messagingSenderId: "212257402910",
+  appId: "1:212257402910:web:71334d92c4c4ab6cca3e0f",
+  measurementId: "G-1C3DHGZVV6"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.db = db;
+  window.firebaseFunctions = {
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy
+  };
+
+</script>
+
 <script src="./script.js"></script>
 </body>
 </html>
